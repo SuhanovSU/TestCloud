@@ -4,6 +4,11 @@ terraform {
       source = "yandex-cloud/yandex"
     }
   }
+  required_providers {
+    routeros = {
+      source = "terraform-routeros/routeros"
+    }
+  }
 }
 
 provider "yandex" {
@@ -14,6 +19,12 @@ provider "yandex" {
   default_tags {
     tags = var.default_tags
   }
+}
+
+provider "routeros" {
+  hosturl  = "(https|api|apis)://my.router.local[:port]"
+  username = "my_username"
+  password = "my_super_secret_password"
 }
 
 data "yandex_compute_image" "last_ubuntu" {
