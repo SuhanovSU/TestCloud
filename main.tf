@@ -16,6 +16,14 @@ provider "yandex" {
   }
 }
 
+data "yandex_compute_image" "last_ubuntu" {
+  family = "ubuntu-2204-lts"  # ОС (Ubuntu, 22.04 LTS)
+}
+
+data "yandex_vpc_subnet" "default_a" {
+  name = "default-ru-central1-a"  # одна из дефолтных подсетей
+}
+
 resource "yandex_compute_instance" "default" { 
   name = "test-instance"
 	platform_id = "standard-v1" # тип процессора (Intel Broadwell)
@@ -28,12 +36,12 @@ resource "yandex_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8v0s6adqu3ui3rsuap" # ОС (Ubuntu, 22.04 LTS)
+      image_id = data.yandex_compute_image.last_ubuntu.id
     }
   }
 
   network_interface {
-    subnet_id = "e9bdgo95ucmut6r7pioq" # одна из дефолтных подсетей
+    subnet_id = data.yandex_vpc_subnet.default_a.subnet_id
     nat = true # автоматически установить динамический ip
   }
 }
