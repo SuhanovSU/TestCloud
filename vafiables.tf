@@ -1,11 +1,11 @@
-variable "aws_region" {
-  description = "AWS Region"
-  default     = "eu-north-1"
+variable "ya_zone" {
+  description = "YA Zone"
+  default     = "ru-central1-a"
 }
 
 variable "default_tags" {
   type        = map(string)
-  description = "Default tags for AWS that will be attached to each resource."
+  description = "Default tags for YA that will be attached to each resource."
   default = {
     "TerminationDate" = "Permanent",
     "Environment"     = "Development",
